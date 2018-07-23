@@ -1,0 +1,11 @@
+{
+  "name": "teams-crawler",
+  "version": "1.0.0",
+  "description": "A crawler to export all chat threads in a Microsoft Teams channel.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "superyyrrzz",
+  "license": "ISC"
+}
