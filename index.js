@@ -4,6 +4,7 @@ const fs = require('fs');
 const https = require('https');
 
 const settings = JSON.parse(fs.readFileSync('teams-crawler.json'));
+const teamId = settings.teamId
 const channelId = settings.channelId;
 const token = settings.token;
 const maxRequests = settings.maxRequests != undefined ? settings.maxRequests : -1;
@@ -13,11 +14,11 @@ const result = {
 };
 getChatThreads(maxRequests);
 
-function getOptions(channelId, token, continuationToken) {
+function getOptions(teamId, channelId, token, continuationToken) {
   const options = {
-    hostname: 'chatsvcagg.teams.microsoft.com',
+    hostname: 'teams.microsoft.com',
     port: 443,
-    path: `/api/v1/teams/${channelId}/channels/${channelId}?pageSize=20`,
+    path: `/api/csa-msft/api/v1/teams/{teamId}/channels/${channelId}?pageSize=20`,
     headers: {
       authorization: `Bearer ${token}`
     }
@@ -36,7 +37,7 @@ function getChatThreads(remaining, continuationToken) {
   }
 
   let body = '';
-  const options = getOptions(channelId, token, continuationToken)
+  const options = getOptions(teamId, channelId, token, continuationToken)
   const req = https.get(options, (res) => {
     console.log('statusCode:', res.statusCode);
 
